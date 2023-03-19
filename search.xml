@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>直接内存</title>
+      <link href="/2023/03/20/%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98/"/>
+      <url>/2023/03/20/%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h1><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><ul><li>常见于NIO操作，用于数据缓冲区</li><li>分配回收成本较高，但读写性能高</li><li>不受JVM内存回收管理</li></ul><p><img src="https://cdn.jsdelivr.net/gh/Zerone-OI/cloudimg@main/202303191746175.png" alt="Untitled"></p><p><img src="https://cdn.jsdelivr.net/gh/Zerone-OI/cloudimg@main/202303191746368.png" alt="uTools_1678371053120"></p><p>以下是可能导致直接内存溢出的Java代码示例:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DirectMemoryOOM</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">bufferSize</span> <span class="operator">=</span> <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 1GB buffer</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            ByteBuffer.allocateDirect(bufferSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行这段代码会导致 <code>OutOfMemoryError: Direct buffer memory</code>。这是因为JVM无法回收直接内存，所以当程序分配了太多的直接内存时，会导致内存溢出。</p><h2 id="直接内存释放原理"><a href="#直接内存释放原理" class="headerlink" title="直接内存释放原理"></a>直接内存释放原理</h2><p>直接内存的分配是通过调用 <code>ByteBuffer.allocateDirect()</code> 方法实现的，底层是通过调用 <code>Unsafe</code> 类的 <code>allocateMemory()</code> 方法在操作系统层面上进行分配。所以，直接内存的分配和普通堆内存的分配是不同的，前者是在 JVM 外部进行的，而后者是在 JVM 内部进行的。</p><p>直接内存的回收是通过垃圾回收机制无法进行的，因为它不受 JVM 内存回收机制的管理。因此，必须手动释放直接内存。释放直接内存的方法是通过调用 <code>ByteBuffer</code> 的 <code>cleaner()</code> 方法，然后调用 <code>Cleaner</code> 对象的 <code>clean()</code> 方法。<code>clean()</code> 方法会在 JVM 发现垃圾对象时被调用，在这个方法中，我们可以调用 <code>Unsafe</code> 类的 <code>freeMemory()</code> 方法释放直接内存。</p><p>总结来说，直接内存的分配成本较高，但读写性能高。而直接内存的释放需要手动进行，否则可能会导致内存泄漏或内存溢出。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>本地方法栈</title>
       <link href="/2023/03/20/%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/"/>
       <url>/2023/03/20/%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/</url>
