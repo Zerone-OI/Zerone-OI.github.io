@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>本地方法栈</title>
+      <link href="/2023/03/20/%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/"/>
+      <url>/2023/03/20/%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/</url>
+      
+        <content type="html"><![CDATA[<h1 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h1><p>本地方法栈（Native Method Stack）是 JVM 执行本地方法（Native Method）的一块内存区域，与 Java 虚拟机栈类似，每个线程都有自己的本地方法栈。本地方法栈中存储的是本地方法的栈帧，栈帧中包含了本地方法的参数、局部变量以及返回值等信息。</p><p>与 Java 虚拟机栈不同的是，本地方法栈并不是虚拟机规范中的必要区域，也就是说，JVM 可以选择不去实现本地方法栈，而直接把本地方法映射到 Java 栈上。这种情况下，本地方法的参数和返回值将会和 Java 方法混在一起存放，而不是在一个独立的栈帧中存放。</p><p>需要注意的是，虽然本地方法栈不是必需的，但是在实际的 JVM 实现中，几乎所有的 JVM 都会提供本地方法栈。本地方法栈的大小也可以通过虚拟机参数来设置。如果本地方法栈空间不足，就会抛出 StackOverflowError 异常。</p><p><img src="https://cdn.jsdelivr.net/gh/Zerone-OI/cloudimg@main/202303191744973.png" alt="uTools_1678306438061"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>方法区</title>
       <link href="/2023/03/20/%E6%96%B9%E6%B3%95%E5%8C%BA%206396b3a623944546a1d8117d711c8a8e/"/>
       <url>/2023/03/20/%E6%96%B9%E6%B3%95%E5%8C%BA%206396b3a623944546a1d8117d711c8a8e/</url>
